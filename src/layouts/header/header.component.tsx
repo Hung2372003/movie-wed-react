@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-export default function HeaderComponent() {
+interface HeaderProps {
+  onLoginOpen: () => void;
+  onSignupOpen?: () => void;
+}
+export default function HeaderComponent({ onLoginOpen,onSignupOpen }: HeaderProps) {
 const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
  useEffect(() => {
@@ -190,8 +194,8 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
               </li>
 
               <li><a href="#">Help</a></li>
-              <li className="loginLink"><a href="#">LOG In</a></li>
-              <li className="btn signupLink"><a href="#">Sign up</a></li>
+              <li className="loginLink" onClick={onLoginOpen}><a href="#">LOG In</a></li>
+              <li className="btn signupLink" onClick={onSignupOpen}><a href="#">Sign up</a></li>
             </ul>
           </div>
         </nav>

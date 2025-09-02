@@ -8,16 +8,21 @@ import PreloaderComponent from "../components/preloader/preloader.component";
 import { useEffect, useState } from "react";
 
 
+
 export default function HomePage() {
 
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 2000); 
+    // useEffect(() => {
+    //   const timer = setTimeout(() => {
+    //     setLoading(false);
+    //   }, 2000); 
 
-      return () => clearTimeout(timer);
+    //   return () => clearTimeout(timer);
+    // }, []);
+    useEffect(() => {
+      // Khi component App render xong lần đầu => ẩn preloader
+      setLoading(false);
     }, []);
     if (loading) {
       return <PreloaderComponent />;
@@ -101,11 +106,7 @@ const moviesOutStanding = [
         <OutstandingMovieSectionComponent movies={moviesOutStanding} />
         <MovieSectionComponent title="in theater" tabs={theaterTabs} />
         <MovieSectionComponent title="on tv" tabs={tvTabs} />
-        <TrailerSectionComponent
-          videos={videos}
-          trailers={trailers}
-          celebrities={celebrities}
-        />
+        <TrailerSectionComponent videos={videos} trailers={trailers} celebrities={celebrities} />
     </>
   );
 }
