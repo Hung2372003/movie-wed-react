@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const axiosClient = axios.create({
+const AxiosClient = axios.create({
   baseURL: "http://localhost:5000/api", // URL của .NET API
 });
 
 // Gắn token nếu có
-axiosClient.interceptors.request.use((config) => {
+AxiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -13,4 +13,4 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
-export default axiosClient;
+export default AxiosClient;
