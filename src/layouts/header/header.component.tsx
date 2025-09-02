@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 export default function HeaderComponent() {
 const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
@@ -38,7 +39,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
             <a href="index-2.html">
               <img
                 className="logo"
-                src="/public/images/logo1.png"
+                src="/images/logo1.png"
                 alt=""
                 width="119"
                 height="58"
@@ -60,17 +61,22 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                 onMouseEnter={() => setActiveDropdown("home")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <a className="btn btn-default dropdown-toggle lv1">
-                  Home <i className="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <ul
+                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#dcf836" : "inherit"
+                  })}
+                >
+                  Home 
+                  {/* <i className="fa fa-angle-down" aria-hidden="true"></i> */}
+                </NavLink>
+                {/* <ul
                   className="dropdown-menu level1"
                   style={{ display: activeDropdown === "home" ? "block" : "none" }}
                 >
                   <li><a href="index-2.html">Home 01</a></li>
                   <li><a href="homev2.html">Home 02</a></li>
                   <li><a href="homev3.html">Home 03</a></li>
-                </ul>
+                </ul> */}
               </li>
 
               {/* Movies */}

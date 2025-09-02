@@ -1,18 +1,21 @@
-type Props = {
-  img: string;
+import React from "react";
+
+interface CelebrityItemProps {
   name: string;
   role: string;
-};
+  image: string;
+  link?: string;
+}
 
-const CelebrityItemComponent = ({ img, name, role }: Props) => {
+const CelebrityItem: React.FC<CelebrityItemProps> = ({ name, role, image, link }) => {
   return (
     <div className="celeb-item">
-      <a href="#">
-        <img src={img} alt={name} width={70} height={70} />
+      <a href={link || "#"}>
+        <img src={image} alt={name} width={70} height={70} />
       </a>
       <div className="celeb-author">
         <h6>
-          <a href="#">{name}</a>
+          <a href={link || "#"}>{name}</a>
         </h6>
         <span>{role}</span>
       </div>
@@ -20,4 +23,4 @@ const CelebrityItemComponent = ({ img, name, role }: Props) => {
   );
 };
 
-export default CelebrityItemComponent;
+export default CelebrityItem;

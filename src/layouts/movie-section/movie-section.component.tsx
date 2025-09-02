@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import MovieItemComponent from "../movie-item/movie-item.component";
+import MovieItemComponent from "../../components/movie-item/movie-item.component";
 
 type Movie = {
   id: number;
