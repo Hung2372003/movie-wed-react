@@ -65,22 +65,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                 onMouseEnter={() => setActiveDropdown("home")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/"
-                  style={({ isActive }) => ({
-                    color: isActive ? "#dcf836" : ""
-                  })}
-                >
-                  Home 
-                  {/* <i className="fa fa-angle-down" aria-hidden="true"></i> */}
-                </NavLink>
-                {/* <ul
-                  className="dropdown-menu level1"
-                  style={{ display: activeDropdown === "home" ? "block" : "none" }}
-                >
-                  <li><a href="index-2.html">Home 01</a></li>
-                  <li><a href="homev2.html">Home 02</a></li>
-                  <li><a href="homev3.html">Home 03</a></li>
-                </ul> */}
+                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/" style={({ isActive }) => ({color: isActive ? "#dcf836" : "" })}> Home </NavLink>
               </li>
 
               {/* Movies */}
@@ -89,25 +74,9 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                 onMouseEnter={() => setActiveDropdown("movies")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/movies"
-                 style={({ isActive }) => ({
-                    color: isActive ? "#dcf836" : ""
-                  })}
-                >
+                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/movies" style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
                   Movies 
-                  {/* <i className="fa fa-angle-down" aria-hidden="true"></i> */}
                 </NavLink>
-                {/* <ul
-                  className="dropdown-menu level1"
-                  style={{
-                    display: activeDropdown === "movies" ? "block" : "none",
-                  }}
-                >
-                  <li><a href="moviegrid.html">Movie grid</a></li>
-                  <li><a href="moviegridfw.html">Movie grid full width</a></li>
-                  <li><a href="movielist.html">Movie list</a></li>
-                  <li className="it-last"><a href="moviesingle.html">Movie single</a></li>
-                </ul> */}
               </li>
 
               {/* Celebrities */}
