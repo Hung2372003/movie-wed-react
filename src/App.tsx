@@ -6,6 +6,7 @@ import FooterComponent from "./layouts/footer/footer.component";
 import LoginComponent from "./layouts/log-in/log-in.component";
 import { useState } from "react";
 import SignupModal from "./layouts/sign-up/sign-up.component";
+import MoviesPage from "./pages/movies.page";
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -16,6 +17,7 @@ function App() {
        <HeaderComponent onLoginOpen={() => setIsLoginOpen(true)} onSignupOpen={() => setIsSignupOpen(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<MoviesPage />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>

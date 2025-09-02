@@ -67,7 +67,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
               >
                 <NavLink className="btn btn-default dropdown-toggle lv1"  to="/"
                   style={({ isActive }) => ({
-                    color: isActive ? "#dcf836" : "inherit"
+                    color: isActive ? "#dcf836" : ""
                   })}
                 >
                   Home 
@@ -89,10 +89,15 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                 onMouseEnter={() => setActiveDropdown("movies")}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <a className="btn btn-default dropdown-toggle lv1">
-                  Movies <i className="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <ul
+                <NavLink className="btn btn-default dropdown-toggle lv1"  to="/movies"
+                 style={({ isActive }) => ({
+                    color: isActive ? "#dcf836" : ""
+                  })}
+                >
+                  Movies 
+                  {/* <i className="fa fa-angle-down" aria-hidden="true"></i> */}
+                </NavLink>
+                {/* <ul
                   className="dropdown-menu level1"
                   style={{
                     display: activeDropdown === "movies" ? "block" : "none",
@@ -102,7 +107,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                   <li><a href="moviegridfw.html">Movie grid full width</a></li>
                   <li><a href="movielist.html">Movie list</a></li>
                   <li className="it-last"><a href="moviesingle.html">Movie single</a></li>
-                </ul>
+                </ul> */}
               </li>
 
               {/* Celebrities */}
