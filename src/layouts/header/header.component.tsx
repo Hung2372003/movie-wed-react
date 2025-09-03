@@ -6,7 +6,7 @@ interface HeaderProps {
   onSignupOpen?: () => void;
 }
 export default function HeaderComponent({ onLoginOpen,onSignupOpen }: HeaderProps) {
-const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+// const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
  useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +74,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
             <ul className="nav navbar-nav flex-child-menu menu-right">
               {/* Pages */}
-              <li
+              {/* <li
                 className="dropdown first"
                 onMouseEnter={() => setActiveDropdown("pages")}
                 onMouseLeave={() => setActiveDropdown(null)}
@@ -92,7 +92,7 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                   <li><a href="404.html">404 Page</a></li>
                   <li className="it-last"><a href="comingsoon.html">Coming soon</a></li>
                 </ul>
-              </li>
+              </li> */}
 
               <li><a href="#">Help</a></li>
               <li className="loginLink" onClick={onLoginOpen}><a href="#">LOG In</a></li>
