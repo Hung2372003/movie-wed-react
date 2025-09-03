@@ -16,3 +16,18 @@
   object-fit: cover;
 }
 
+.navbar-collapse.collapse {
+  display: none;
+}
+.navbar-collapse.collapse.in {
+  display: block;
+}
+
+/* Dropdown custom */
+.dropdown-menu {
+  display: none;
+}
+.dropdown.open .dropdown-menu,
+.dropdown-menu.show {
+  display: block;
+}

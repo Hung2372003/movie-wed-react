@@ -7,6 +7,8 @@ import LoginComponent from "./layouts/log-in/log-in.component";
 import { useState } from "react";
 import SignupModal from "./layouts/sign-up/sign-up.component";
 import MoviesPage from "./pages/movies.page";
+import MoviesFavoritesPage from "./pages/movie-favorites.page";
+import UserProfilePage from "./pages/user-profile.page";
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<MoviesPage />} />
+        <Route path="/movie-favorites" element={<MoviesFavoritesPage />} />
+        <Route path="/user-profile" element={<UserProfilePage />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>

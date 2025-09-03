@@ -40,15 +40,9 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
                 <span></span>
               </div>
             </div>
-            <a href="index-2.html">
-              <img
-                className="logo"
-                src="/images/logo1.png"
-                alt=""
-                width="119"
-                height="58"
-              />
-            </a>
+            <NavLink to="/">
+              <img className="logo" src="/images/logo1.png" alt="" width="119" height="58"/>
+            </NavLink>
           </div>
           <div
             className="collapse navbar-collapse flex-parent"
@@ -56,93 +50,26 @@ const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
           >
             <ul className="nav navbar-nav flex-child-menu menu-left">
               <li className="hidden">
-                <a href="#page-top"></a>
+                <NavLink to="/"></NavLink>
               </li>
-
-              {/* Example: Home */}
-              <li
-                className="dropdown first"
-                onMouseEnter={() => setActiveDropdown("home")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
+              <li className="dropdown first">
                 <NavLink className="btn btn-default dropdown-toggle lv1"  to="/" style={({ isActive }) => ({color: isActive ? "#dcf836" : "" })}> Home </NavLink>
               </li>
-
-              {/* Movies */}
-              <li
-                className="dropdown first"
-                onMouseEnter={() => setActiveDropdown("movies")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
+              <li className="dropdown first">
                 <NavLink className="btn btn-default dropdown-toggle lv1"  to="/movies" style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
                   Movies 
                 </NavLink>
               </li>
-
-              {/* Celebrities */}
-              <li
-                className="dropdown first"
-                onMouseEnter={() => setActiveDropdown("celebrities")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <a className="btn btn-default dropdown-toggle lv1">
-                  Celebrities <i className="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <ul
-                  className="dropdown-menu level1"
-                  style={{
-                    display: activeDropdown === "celebrities" ? "block" : "none",
-                  }}
-                >
-                  <li><a href="celebritygrid01.html">Celebrity grid 01</a></li>
-                  <li><a href="celebritygrid02.html">Celebrity grid 02</a></li>
-                  <li><a href="celebritylist.html">Celebrity list</a></li>
-                  <li className="it-last"><a href="celebritysingle.html">Celebrity single</a></li>
-                </ul>
+              <li className="dropdown first">
+                <NavLink className="btn btn-default dropdown-toggle lv1" to={"/movie-favorites"} style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
+                  Favorites
+                </NavLink>
               </li>
-
-              {/* News */}
-              <li
-                className="dropdown first"
-                onMouseEnter={() => setActiveDropdown("news")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <a className="btn btn-default dropdown-toggle lv1">
-                  News <i className="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <ul
-                  className="dropdown-menu level1"
-                  style={{
-                    display: activeDropdown === "news" ? "block" : "none",
-                  }}
-                >
-                  <li><a href="bloglist.html">Blog List</a></li>
-                  <li><a href="bloggrid.html">Blog Grid</a></li>
-                  <li className="it-last"><a href="blogdetail.html">Blog Detail</a></li>
-                </ul>
-              </li>
-
-              {/* Community */}
-              <li
-                className="dropdown first"
-                onMouseEnter={() => setActiveDropdown("community")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <a className="btn btn-default dropdown-toggle lv1">
-                  Community <i className="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <ul
-                  className="dropdown-menu level1"
-                  style={{
-                    display: activeDropdown === "community" ? "block" : "none",
-                  }}
-                >
-                  <li><a href="userfavoritegrid.html">User favorite grid</a></li>
-                  <li><a href="userfavoritelist.html">User favorite list</a></li>
-                  <li><a href="userprofile.html">User profile</a></li>
-                  <li className="it-last"><a href="userrate.html">User rate</a></li>
-                </ul>
-              </li>
+                <li className="dropdown first">
+                  <NavLink className="btn btn-default dropdown-toggle lv1" to={"/profile"} style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
+                    Profile
+                  </NavLink>
+                </li>
             </ul>
 
             <ul className="nav navbar-nav flex-child-menu menu-right">

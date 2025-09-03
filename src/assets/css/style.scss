@@ -3186,7 +3186,7 @@ button.close {
 .navbar-header,
 .navbar-collapse,
 .modal-footer {
-  *zoom: 1;
+  // *zoom: 1;
 }
 .clearfix:before,
 .clearfix:after,
@@ -3938,7 +3938,7 @@ textarea {
 /* III. COMPONENT
 ***********************/
 .row {
-  *zoom: 1;
+  // *zoom: 1;
 }
 .row:before,
 .row:after {
@@ -7837,7 +7837,7 @@ header .navbar-default .flex-parent {
 @media (min-width: 992px) {
   header .navbar-default .flex-parent {
     display: flex !important;
-    jutify-content: flex-start;
+    justify-content: flex-start;
   }
 }
 header .navbar-default .flex-parent .menu-left {

@@ -10,24 +10,10 @@ import { useEffect, useState } from "react";
 
 
 export default function HomePage() {
-
     const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //   const timer = setTimeout(() => {
-    //     setLoading(false);
-    //   }, 2000); 
-
-    //   return () => clearTimeout(timer);
-    // }, []);
-    useEffect(() => {
-      // Khi component App render xong lần đầu => ẩn preloader
-      setLoading(false);
-    }, []);
-    if (loading) {
-      return <PreloaderComponent />;
-    }
-
+    useEffect(() => { setLoading(false) }, []);
+    if (loading) return <PreloaderComponent />;
+    
    const theaterTabs = [
     {
       id: "tab1",
