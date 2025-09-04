@@ -57,7 +57,7 @@ export default function HeaderComponent({ onLoginOpen,onSignupOpen }: HeaderProp
               </li>
               <li className="dropdown first">
                 <NavLink className="btn btn-default dropdown-toggle lv1"  to="/movies" style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
-                  Movies 
+                  Movies
                 </NavLink>
               </li>
               <li className="dropdown first">
@@ -66,7 +66,7 @@ export default function HeaderComponent({ onLoginOpen,onSignupOpen }: HeaderProp
                 </NavLink>
               </li>
                 <li className="dropdown first">
-                  <NavLink className="btn btn-default dropdown-toggle lv1" to={"/profile"} style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
+                  <NavLink className="btn btn-default dropdown-toggle lv1" to={"/user-profile"} style={({ isActive }) => ({ color: isActive ? "#dcf836" : ""})}>
                     Profile
                   </NavLink>
                 </li>

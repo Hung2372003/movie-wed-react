@@ -49,7 +49,7 @@ const MovieGridComponent: React.FC<MovieListProps> = ({
   };
 
   return (
-    <div className="col-md-8 col-sm-12 col-xs-12">
+    <>
       {/* Topbar filter */}
       <div className="topbar-filter">
         <p>
@@ -118,7 +118,7 @@ const MovieGridComponent: React.FC<MovieListProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

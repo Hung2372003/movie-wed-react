@@ -16,11 +16,11 @@ const movies = [
       { id: 7, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
       { id: 8, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
       { id: 9, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-      { id: 10, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },  
+      { id: 10, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
       { id: 11, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
       { id: 12, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
       { id: 13, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-      { id: 14, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },          
+      { id: 14, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
     ];
 
 export default function MoviesPage() {
@@ -54,17 +54,19 @@ export default function MoviesPage() {
         <div className="page-single">
           <div className="container">
             <div className="row ipad-width">
-              <MovieGridComponent
-                  movies={pagedMovies}
-                  total={total}
-                  moviesPerPage={perPage}
-                  onPageChange={(newPage) => setPage(newPage)}
-                  onPerPageChange={(newPerPage) => {
-                    setPerPage(newPerPage);
-                    setPage(1); // reset về page 1 khi đổi perPage
-                  }}
-                  onSortChange={(sort) => console.log("Sort:", sort)}
-                />
+                <div className="col-md-8 col-sm-12 col-xs-12">
+                    <MovieGridComponent
+                        movies={pagedMovies}
+                        total={total}
+                        moviesPerPage={perPage}
+                        onPageChange={(newPage) => setPage(newPage)}
+                        onPerPageChange={(newPerPage) => {
+                          setPerPage(newPerPage);
+                          setPage(1); // reset về page 1 khi đổi perPage
+                        }}
+                        onSortChange={(sort) => console.log("Sort:", sort)}
+                      />
+                </div>
               <div className="col-md-4 col-sm-12 col-xs-12">
 			        	<div className="sidebar">
                   <SearchFormComponent />
