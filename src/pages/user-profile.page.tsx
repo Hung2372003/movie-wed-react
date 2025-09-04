@@ -27,7 +27,6 @@ export default function UserProfilePage() {
                                     avatarUrl="images/uploads/user-img.png"
                                     profileLink="/user-profile"
                                     favoriteLink="/movie-favorites"
-
                                     activePage="profile"
                                     onChangeAvatar={() => alert("Change avatar clicked")}
                                     onChangePassword={() => alert("Change password clicked")}
