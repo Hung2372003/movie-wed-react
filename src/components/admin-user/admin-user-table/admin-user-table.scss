@@ -1,0 +1,75 @@
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  thead {
+    background: #3498db;
+    color: #fff;
+
+    th {
+      padding: 12px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f9f9f9;
+      }
+
+      td {
+        padding: 12px;
+        font-size: 14px;
+        color: #333;
+        vertical-align: middle;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #eee;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-right: 6px;
+        transition: 0.2s ease;
+
+        &.edit {
+          background: #f1c40f;
+          color: #fff;
+
+          &:hover {
+            background: #d4ac0d;
+          }
+        }
+
+        &.delete {
+          background: #e74c3c;
+          color: #fff;
+
+          &:hover {
+            background: #c0392b;
+          }
+        }
+      }
+    }
+  }
+}

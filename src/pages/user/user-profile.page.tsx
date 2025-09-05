@@ -1,5 +1,5 @@
-import UserInformationComponent from "../components/user-information/user-information.component";
-import UserProfileChangeFormComponent from "../components/user-profile-change-form/user-profile-change-form.component";
+import UserInformationComponent from "../../components/user-information/user-information.component";
+import UserProfileChangeFormComponent from "../../components/user-profile-change-form/user-profile-change-form.component";
 
 export default function UserProfilePage() {
     return (

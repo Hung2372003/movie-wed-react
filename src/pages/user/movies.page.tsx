@@ -1,10 +1,10 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import PreloaderComponent from "../components/preloader/preloader.component";
+import PreloaderComponent from "../../components/preloader/preloader.component";
 import { useEffect, useState } from "react";
-import MovieGridComponent from "../layouts/movie-grid/movie-grid.component";
-import SearchFormComponent from "../components/search-form/search-form.component";
+import MovieGridComponent from "../../layouts/movie-grid/movie-grid.component";
+import SearchFormComponent from "../../components/search-form/search-form.component";
 
 const movies = [
       { id: 1, title: "Interstellar", image: "images/uploads/mv-item1.jpg", rating: 8.6 },

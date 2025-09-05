@@ -1,0 +1,82 @@
+.admin-episode-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+
+  h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+  }
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #444;
+  }
+
+  input[type="file"] {
+    margin-bottom: 16px;
+  }
+
+  video {
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease-in-out;
+
+      &:first-child {
+        background: #007bff;
+        color: #fff;
+
+        &:hover {
+          background: #0056b3;
+        }
+      }
+
+      &:last-child {
+        background: #e0e0e0;
+
+        &:hover {
+          background: #c2c2c2;
+        }
+      }
+    }
+  }
+}

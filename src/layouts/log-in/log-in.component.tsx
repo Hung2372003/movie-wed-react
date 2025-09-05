@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "../../hooks/use-auth";
 
 interface LogInComponentProps {
   isOpen: boolean;
@@ -6,34 +7,52 @@ interface LogInComponentProps {
 }
 
 const LogInComponent: React.FC<LogInComponentProps> = ({ isOpen, onClose }) => {
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    };
+  const { login } = useAuth();
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      await login(identifier, password);
+      onClose(); // đóng popup sau khi login thành công
+    } catch (err: any) {
+      setError(err?.response?.data?.message || "Login failed. Please check credentials.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-     <div
-      className={`overlay ${isOpen ? "openform" : ""}`}
-      onClick={handleOverlayClick}
-    >
-      <div className="login-wrapper" id="login-content" >
+    <div className={`overlay ${isOpen ? "openform" : ""}`} onClick={handleOverlayClick}>
+      <div className="login-wrapper" id="login-content">
         <div className="login-content">
           <a className="close" onClick={onClose} style={{ cursor: "pointer" }}>
             x
           </a>
           <h3>Login</h3>
-          <form method="post" action="#">
+
+          <form onSubmit={handleSubmit}>
             <div className="row">
               <label htmlFor="username">
-                Username:
+                Username or Email:
                 <input
                   type="text"
                   name="username"
                   id="username"
                   placeholder="Hugh Jackman"
-                  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
                   required
                 />
               </label>
@@ -47,11 +66,14 @@ const LogInComponent: React.FC<LogInComponentProps> = ({ isOpen, onClose }) => {
                   name="password"
                   id="password"
                   placeholder="******"
-                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </label>
             </div>
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
             <div className="row">
               <div className="remember">
@@ -59,12 +81,14 @@ const LogInComponent: React.FC<LogInComponentProps> = ({ isOpen, onClose }) => {
                   <input type="checkbox" name="remember" value="Remember me" />
                   <span>Remember me</span>
                 </div>
-                <a href="#">Forget password ?</a>
+                <a href="#">Forget password?</a>
               </div>
             </div>
 
             <div className="row">
-              <button type="submit">Login</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+              </button>
             </div>
           </form>
 
@@ -75,7 +99,7 @@ const LogInComponent: React.FC<LogInComponentProps> = ({ isOpen, onClose }) => {
                 <i className="ion-social-facebook"></i>Facebook
               </a>
               <a className="tw" href="#">
-                <i className="ion-social-twitter"></i>twitter
+                <i className="ion-social-twitter"></i>Twitter
               </a>
             </div>
           </div>

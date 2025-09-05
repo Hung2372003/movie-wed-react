@@ -1,10 +1,10 @@
 
-import MovieSectionComponent from "../layouts/movie-section/movie-section.component";
+import MovieSectionComponent from "../../layouts/movie-section/movie-section.component";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import TrailerSectionComponent from "../layouts/trailer-section/trailer-section.component";
-import OutstandingMovieSectionComponent from "../layouts/out-standing-movie-section/out-standing-movie-section.component";
-import PreloaderComponent from "../components/preloader/preloader.component";
+import TrailerSectionComponent from "../../layouts/trailer-section/trailer-section.component";
+import OutstandingMovieSectionComponent from "../../layouts/out-standing-movie-section/out-standing-movie-section.component";
+import PreloaderComponent from "../../components/preloader/preloader.component";
 import { useEffect, useState } from "react";
 
 
@@ -13,7 +13,7 @@ export default function HomePage() {
     const [loading, setLoading] = useState(true);
     useEffect(() => { setLoading(false) }, []);
     if (loading) return <PreloaderComponent />;
-    
+
    const theaterTabs = [
     {
       id: "tab1",

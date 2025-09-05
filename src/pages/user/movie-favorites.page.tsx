@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import UserInformation from "../components/user-information/user-information.component";
-import MovieGridComponent from "../layouts/movie-grid/movie-grid.component";
-import PreloaderComponent from "../components/preloader/preloader.component";
+import UserInformation from "../../components/user-information/user-information.component";
+import MovieGridComponent from "../../layouts/movie-grid/movie-grid.component";
+import PreloaderComponent from "../../components/preloader/preloader.component";
 
 const movies = [
       { id: 1, title: "Interstellar", image: "images/uploads/mv-item1.jpg", rating: 8.6 },

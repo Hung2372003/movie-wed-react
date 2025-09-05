@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const AxiosClient = axios.create({
-  baseURL: "http://localhost:5000/api", // URL của .NET API
+  baseURL: "https://localhost:44336/api", // URL của .NET API
 });
 
 // Gắn token nếu có

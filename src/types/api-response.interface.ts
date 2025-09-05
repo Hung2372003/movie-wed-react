@@ -10,16 +10,23 @@ export interface User {
 export interface Movie {
   id: number;
   title: string;
-  description: string;
-  posterUrl: string;
-  trailerUrl: string;
-  releaseYear: number;
-  country: string;
-  director: string;
-  duration: number;
-  type: string;
-  createdAt: string;
-  updatedAt?: string;
+  description?: string | null;
+  posterUrl?: string | null;
+  posterPublicId?: string | null;
+  trailerUrl?: string | null;
+  trailerPublicId?: string | null;
+  releaseYear?: number | null;
+  country?: string | null;
+  director?: string | null;
+  duration?: number | null; // phút
+  type: string;             // ví dụ: "Action", "Drama"...
+  createdAt: string;        // ISO string
+  updatedAt?: string | null;
+
+  // Quan hệ
+  episodes?: Episode[];
+  comments?: Comment[];
+  ratings?: Rating[];
 }
 
 // Episode
@@ -58,4 +65,22 @@ export interface Favorite {
   movieId: number;
   userId: number;
   createdAt: string;
+}
+
+export interface AuthUser {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  user: AuthUser;
+}
+
+export interface RegisterResponse {
+  id: number;
+  username: string;
+  email: string;
 }
