@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import OutstandingMovieItemComponent from "../../components/outstanding-movie-item/outstanding-movie-item.component";
 
 interface Movie {
+  id: number;
   title: string;
   year: string;
   rating: number;

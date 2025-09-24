@@ -1,6 +1,7 @@
 
 
 interface OutstandingMovieItemComponentProps {
+  id: number;             // ID phim
   title: string;          // Tên phim
   year: string;           // Năm phát hành
   rating: number;         // Điểm đánh giá
@@ -12,6 +13,7 @@ interface OutstandingMovieItemComponentProps {
 }
 
 export default function OutstandingMovieItemComponent({
+  id,
   title,
   year,
   rating,
@@ -78,13 +80,13 @@ export default function OutstandingMovieItemComponent({
               </ul>
             </div>
             <div className="btn-transform transform-vertical">
-              <div>
-                <a href="#" className="item item-1 redbtn">
+              <div >
+                <a href={`/movie-detail/${id}`} className="item item-1 redbtn">
                   more detail
                 </a>
               </div>
               <div>
-                <a href="#" className="item item-2 redbtn hvrbtn">
+                <a href={`/movie-detail/${id}`} className="item item-2 redbtn hvrbtn">
                   more detail
                 </a>
               </div>

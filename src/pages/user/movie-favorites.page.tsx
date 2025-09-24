@@ -21,11 +21,13 @@ const movies = [
     ];
 
 export default function MoviesFavoritesPage() {
-      const [loading, setLoading] = useState(true);
-      const [perPage, setPerPage] = useState(10);
-      const [page, setPage] = useState(1);
-      const total = movies.length;
-      const pagedMovies = movies.slice((page - 1) * perPage, page * perPage);
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+    const [loading, setLoading] = useState(true);
+    const [perPage, setPerPage] = useState(10);
+    const [page, setPage] = useState(1);
+    const total = movies.length;
+    const pagedMovies = movies.slice((page - 1) * perPage, page * perPage);
 
       useEffect(() => { setLoading(false)}, []);
       if (loading) return <PreloaderComponent />;
@@ -36,8 +38,8 @@ export default function MoviesFavoritesPage() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <div className="hero-ct">
-                                <h1>Edward kennedy’s profile</h1>
+                                <h1>{user ? user.username : "User"}</h1>
+                                {/* <h1>{user.username}</h1> */}
                                 <ul className="breadcumb">
                                     <li className="active"><a href="#">Home</a></li>
                                     <li> <span className="ion-ios-arrow-right"></span>Favorite movies</li>
@@ -46,7 +48,6 @@ export default function MoviesFavoritesPage() {
                         </div>
                     </div>
                 </div>
-            </div>
             <div className="page-single">
                 <div className="container">
                     <div className="row ipad-width2">

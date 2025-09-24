@@ -81,6 +81,7 @@ export default function HomePage() {
   return (
     <>
       <OutstandingMovieSectionComponent movies={moviesOutStanding?.data.map(cast =>({
+        id: cast.id,
         title: cast.title,
         year: cast.releaseYear?.toString() ?? "2023",
         rating: cast.averageRating ?? 0,
