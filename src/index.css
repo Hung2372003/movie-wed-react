@@ -67,3 +67,24 @@ button:focus-visible {
   }
 } */
 
+.mv-img img{
+  height: 350px;
+  object-fit: cover;
+}
+.movie-img img{
+  min-height: 400px;
+  object-fit: cover;
+}
+.movie-item-style-1 img {
+    object-fit: cover;
+    height: 100%;
+}
+.scroll-btn.right,.scroll-btn.left {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    height: 34px;
+    font-size: 13px;
+    text-align: center;
+}

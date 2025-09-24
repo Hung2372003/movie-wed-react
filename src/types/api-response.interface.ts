@@ -22,11 +22,12 @@ export interface Movie {
   type: string;             // ví dụ: "Action", "Drama"...
   createdAt: string;        // ISO string
   updatedAt?: string | null;
-
+  averageRating?: number | null;
   // Quan hệ
   episodes?: Episode[];
   comments?: Comment[];
   ratings?: Rating[];
+  favorites?: Favorite[];
 }
 
 // Episode

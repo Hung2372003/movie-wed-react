@@ -1,19 +1,21 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 interface Props {
+  id: number;
   title: string;
   poster: string;
   rating: number;
 }
 
-const MovieItemComponent: React.FC<Props> = ({ title, poster, rating }) => {
+const MovieItemComponent: React.FC<Props> = ({id, title, poster, rating }) => {
+   const navigate = useNavigate();
   return (
 <div className="movie-item">
       <div className="mv-img">
         <img src={poster} alt={title} />
       </div>
       <div className="hvr-inner">
-        <a href="moviesingle.html">
+        <a onClick={() => navigate(`/movie-detail/${id}`)}>
           Read more <i className="ion-android-arrow-dropright"></i>
         </a>
       </div>

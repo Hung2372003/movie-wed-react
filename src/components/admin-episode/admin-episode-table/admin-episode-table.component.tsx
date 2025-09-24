@@ -13,6 +13,7 @@ export default function AdminEpisodeTable({ episodes, onEdit, onDelete }: Props)
       <thead>
         <tr>
           <th>#</th>
+          <th>Movie ID</th>
           <th>Title</th>
           <th>Video</th>
           <th>Actions</th>
@@ -22,6 +23,7 @@ export default function AdminEpisodeTable({ episodes, onEdit, onDelete }: Props)
         {episodes.map((ep) => (
           <tr key={ep.id}>
             <td>{ep.episodeNumber}</td>
+            <td>{ep.movieId}</td>
             <td>{ep.title}</td>
             <td>
               {ep.videoUrl ? (

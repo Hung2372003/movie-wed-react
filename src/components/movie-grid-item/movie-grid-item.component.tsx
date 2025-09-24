@@ -10,13 +10,13 @@ const MovieGridItemComponent: React.FC<MovieItemProps> = ({ movie }) => {
     <div className="movie-item-style-2 movie-item-style-1">
       <img src={movie.image} alt={movie.title} />
       <div className="hvr-inner">
-        <a href={`/movies/${movie.id}`}>
+        <a href={`/movie-detail/${movie.id}`}>
           Read more <i className="ion-android-arrow-dropright"></i>
         </a>
       </div>
       <div className="mv-item-infor">
         <h6>
-          <a href={`/movies/${movie.id}`}>{movie.title}</a>
+          <a href={`/movie-detail/${movie.id}`}>{movie.title}</a>
         </h6>
         <p className="rate">
           <i className="ion-android-star"></i>

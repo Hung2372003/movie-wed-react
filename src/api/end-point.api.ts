@@ -38,17 +38,56 @@ export const MoviesApi = {
 
 // ================= EPISODES =================
 export const EpisodesApi = {
+   getAllEpisode: () =>
+    AxiosClient.get<Episode[]>(`/episodes/movie/all`),
+
   getByMovie: (movieId: number) =>
     AxiosClient.get<Episode[]>(`/episodes/movie/${movieId}`),
 
   getById: (id: number) =>
     AxiosClient.get<Episode>(`/episodes/${id}`),
 
-  create: (movieId: number, data: Omit<Episode, "id" | "createdAt" | "updatedAt">) =>
-    AxiosClient.post<Episode>(`/episodes/movie/${movieId}`, data),
+  create: (movieId: number, data: Omit<Episode, "id" | "createdAt" | "updatedAt"> & { video?: File }) => {
+    const formData = new FormData();
+    formData.append("episodeNumber", data.episodeNumber.toString());
+    formData.append("title", data.title ?? "");
+    
+    // Nếu có file video thì append
+    if (data.video) {
+      formData.append("video", data.video);
+    }
 
-  update: (id: number, data: Partial<Episode>) =>
-    AxiosClient.put<Episode>(`/episodes/${id}`, data),
+    return AxiosClient.post<Episode>(`/episodes/movie/${movieId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+
+  update: (
+  id: number,
+  data: Partial<Episode> & { video?: File }
+    ) => {
+      const formData = new FormData();
+
+      if (data.episodeNumber !== undefined) {
+        formData.append("episodeNumber", data.episodeNumber.toString());
+      }
+
+      if (data.title !== undefined) {
+        formData.append("title", data.title);
+      }
+
+      if (data.video) {
+        formData.append("video", data.video);
+      }
+
+      return AxiosClient.put<Episode>(
+        `/episodes/${id}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+    },
 
   delete: (id: number) =>
     AxiosClient.delete<void>(`/episodes/${id}`),
@@ -60,16 +99,18 @@ export const FavoritesApi = {
     AxiosClient.get<Favorite[]>("/favorites/me"),
 
   add: (movieId: number) =>
-    AxiosClient.post<Favorite>("/favorites", { movieId }),
+    AxiosClient.post<Favorite>(`/favorites/movie/${movieId}`),
 
   remove: (movieId: number) =>
-    AxiosClient.delete<void>(`/favorites/${movieId}`),
+    AxiosClient.delete<void>(`/favorites/movie/${movieId}`),
 };
 
 // ================= RATINGS =================
 export const RatingsApi = {
   rate: (movieId: number, score: number) =>
-    AxiosClient.post<Rating>("/ratings", { movieId, score }),
+    AxiosClient.post<Rating>(`/ratings/${movieId}`, { score }),
+  getAverageRating: (movieId: number) =>
+    AxiosClient.get<{ average: number ,total:number,data:[] }>(`/ratings/movie/${movieId}`),
 };
 
 // ================= COMMENTS =================

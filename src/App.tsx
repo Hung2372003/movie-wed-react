@@ -18,6 +18,8 @@ import AdminUsersPage from "./pages/admin/users/admin-users.page";
 import ProtectedRoute from "./components/common/protected-route.component";
 
 import { ToastContainer } from "react-toastify";
+import MovieDetailPage from "./pages/user/movie-detail.page";
+import MoviePlayerPage from "./pages/user/movie-player.page";
 export default function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -43,6 +45,8 @@ export default function App() {
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/movie-favorites" element={<MoviesFavoritesPage />} />
         <Route path="/user-profile" element={<UserProfilePage />} />
+        <Route path="/movie-detail/:id" element={<MovieDetailPage />} />
+          <Route path="/movie-player/:moveId" element={<MoviePlayerPage />} />
 
         {/* Admin routes */}
         <Route path="/admin" element={

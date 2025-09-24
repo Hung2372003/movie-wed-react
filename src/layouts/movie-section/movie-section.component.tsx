@@ -101,6 +101,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({ title, tabs }) => {
                       {tab.movies.map((movie) => (
                         <div key={movie.id} className="slide-it">
                           <MovieItemComponent
+                          id={movie.id}
                             title={movie.title}
                             poster={movie.poster}
                             rating={movie.rating}

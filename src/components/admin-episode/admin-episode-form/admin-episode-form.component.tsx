@@ -38,19 +38,29 @@ export default function AdminEpisodeForm({ editingEpisode, onSubmit, onClose }: 
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const episode = editingEpisode
-      ? { ...form, id: editingEpisode.id }
-      : { ...form, id: Date.now() };
-    onSubmit(episode);
-    onClose();
-  };
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  const episode = editingEpisode
+    ? { ...form, id: editingEpisode.id, video: videoFile ?? undefined }
+    : { ...form, id: Date.now(), video: videoFile ?? undefined };
 
+  onSubmit(episode as EpisodeAdmin & { video?: File });
+  onClose();
+};
   return (
     <form className="admin-episode-form" onSubmit={handleSubmit}>
       <h3>{editingEpisode ? "✏️ Edit Episode" : "➕ Add New Episode"}</h3>
 
+        <label >Movie ID</label>
+        <input
+          type="number"
+          name="movieId"
+          value={form.movieId}
+          onChange={handleChange}
+          placeholder="Movie ID"
+          required
+      />
+       <label >Episode Number</label>
       <input
         type="number"
         name="episodeNumber"
@@ -59,7 +69,7 @@ export default function AdminEpisodeForm({ editingEpisode, onSubmit, onClose }: 
         placeholder="Episode Number"
         required
       />
-
+      <label>Title:</label>
       <input
         name="title"
         value={form.title}
