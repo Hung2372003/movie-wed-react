@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { EpisodesApi } from "../../api/end-point.api";
+import { MoviesApi } from "../../api/end-point.api";
+import type { Movie } from "../../types/api-response.interface";
 
 interface Episode {
   id: number;
@@ -25,8 +26,9 @@ interface Comment {
 
 export default function MoviePlayerWithComments() {
   const [ episodes, setEpisodes ] = useState<Episode[]>([]);
+  const [movie, setMovie] = useState<Movie | null>(null);
   const { moveId } = useParams<{ moveId: string }>();
-const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
+  const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
   const [hoveredEpisode, setHoveredEpisode] = useState<Episode | null>(null);
   const [comments, setComments] = useState<Comment[]>([
     { id: 1, author: "Alice", content: "Great episode!", date: "2025-09-25" },
@@ -41,14 +43,17 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
  React.useEffect(() => {
   const fetchEpisode = async () => {
     try {
-      let ep = await EpisodesApi.getByMovie(Number(moveId));
-      const episodesList = ep.data.map(e => ({
-        id: e.id,
-        title: e.title,
-        videoUrl: e.videoUrl,
-        thumbnailUrl: 'https://res.cloudinary.com/dgfxw2ed6/image/upload/v1758718902/images/irioutnugi9fdpxemuoa.png',
-        description: e.updatedAt
-      }));
+      let ep = await MoviesApi.getById(Number(moveId));
+      setMovie(ep.data);
+      const episodesList = Array.isArray(ep.data.episodes)
+        ? ep.data.episodes.map(e => ({
+            id: e.id,
+            title: e.title,
+            videoUrl: e.videoUrl,
+            thumbnailUrl: 'https://res.cloudinary.com/dgfxw2ed6/image/upload/v1758718902/images/irioutnugi9fdpxemuoa.png',
+            description: e.updatedAt
+          }))
+        : [];
       setEpisodes(episodesList);
 
       // Set tập đầu tiên làm currentEpisode
@@ -60,7 +65,7 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
     }
   };
   fetchEpisode();
-}, [moveId]); 
+}, [moveId]);
 
   const handleEnded = () => {
     if (!currentEpisode) return;
@@ -105,15 +110,15 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
       <div className="video-container">
         <video
           key={currentEpisode?.id}
-          ref={videoRef}
+          ref={videoRef ?? movie?.trailerUrl}
           width="100%"
           height="500"
           controls
           autoPlay
           onEnded={handleEnded}
         >
-          {currentEpisode && (
-            <source src={currentEpisode.videoUrl} type="video/mp4" />
+          {(currentEpisode || movie?.trailerUrl) && (
+            <source src={currentEpisode?.videoUrl ?? movie?.trailerUrl ?? undefined} type="video/mp4" />
           )}
           Your browser does not support the video tag.
         </video>
@@ -122,7 +127,7 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
       {/* Episode carousel */}
       <div className="episode-carousel">
         <button className="scroll-btn left" onClick={() => scroll("left")}><i className="fa-solid fa-arrow-left"></i></button>
-        <div className="episode-bar" ref={scrollRef}>
+        {(episodes.length > 0) && (<div className="episode-bar" ref={scrollRef}>
           {episodes.map(ep => (
             <div
               key={ep.id}
@@ -147,13 +152,17 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
             </div>
           ))}
         </div>
+        )}
+        {episodes.length <= 0 && (
+          <div className="trailer-text">Trailer</div>
+        )}
         <button className="scroll-btn right" onClick={() => scroll("right")}><i className="fa-solid fa-arrow-right"></i></button>
       </div>
 
       {/* Comments */}
       <div className="comments-section">
         {/* <h3>Comments ({comments.length})</h3> */}
-        
+
         <div className="comment-list">
           {comments.map(c => (
             <div key={c.id} className="comment">
@@ -174,6 +183,7 @@ const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
       </div>
 
       <style>{`
+        .trailer-text{ font-size: 24px; color: #ff0000ff; display: flex; align-items: center; justify-content: center; height: 100%; }
         .movie-player { background:url('/images/uploads/ft-bg.jpg') no-repeat center center fixed; background-size: cover;padding-top: 100px; background-color: #111; color: #fff; font-family: Arial, sans-serif; }
         .video-container { margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.7); }
         .episode-carousel { display: flex; align-items: center; position: relative; margin-bottom: 20px;}

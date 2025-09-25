@@ -9,6 +9,7 @@ interface HeaderProps {
 export default function HeaderComponent({ onLoginOpen, onSignupOpen }: HeaderProps) {
   const [isSticky, setIsSticky] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
   const onLogOut = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -18,7 +19,9 @@ export default function HeaderComponent({ onLoginOpen, onSignupOpen }: HeaderPro
     // Lấy token từ localStorage khi load trang
     const storedToken = localStorage.getItem("token"); // đổi key tùy bạn lưu
     setToken(storedToken);
-
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+    setUser(user);
     const handleScroll = () => {
       setIsSticky(window.scrollY > 100);
     };
@@ -88,7 +91,7 @@ export default function HeaderComponent({ onLoginOpen, onSignupOpen }: HeaderPro
                 <li className="dropdown first">
                   <NavLink to="/user-profile">
                     <img
-                      src="/images/default-avatar.png" // có thể thay bằng avatar từ API
+                      src={user ? user.avatarUrl : "/images/default-avatar.png"} // có thể thay bằng avatar từ API
                       alt="avatar"
                       style={{
                         width: 40,
@@ -101,7 +104,7 @@ export default function HeaderComponent({ onLoginOpen, onSignupOpen }: HeaderPro
                 </li>
                 </>
                 // Nếu có token -> hiện avatar
-                  
+
               ) : (
                 // Nếu chưa login -> hiện login/signup
                 <>

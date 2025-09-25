@@ -1,7 +1,40 @@
+
+
+import { UserApi } from "../../api/end-point.api";
 import UserInformationComponent from "../../components/user-information/user-information.component";
-import UserProfileChangeFormComponent from "../../components/user-profile-change-form/user-profile-change-form.component";
+import UserProfileChangeFormComponent, { type ProfileFormData } from "../../components/user-profile-change-form/user-profile-change-form.component";
+import React, { useEffect, useState } from "react";
 
 export default function UserProfilePage() {
+
+    const [user, setUser] = React.useState<any>(null);
+    const [avatar, setAvatar] = useState<File | null>(null);
+    const handleAvatarChange = (file: File) => {
+            setAvatar(file);
+        };
+
+    const changeProfile = async (data: ProfileFormData) => {
+        const formData = new FormData();
+        Object.entries(data).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) {
+                formData.append(key, value as string);
+            }
+        });
+        if (avatar) {
+            formData.append("avatar", avatar);
+        }
+        await UserApi.updateMe(formData);
+        data.avatarUrl = avatar ? URL.createObjectURL(avatar) : user.avatarUrl;
+        const updatedUser = { ...user, ...data };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
+        alert("Profile updated successfully!");
+    };
+   useEffect(() => {
+        const userString = localStorage.getItem("user");
+        const userData = userString ? JSON.parse(userString) : null;
+        setUser(userData);
+   }, []);
     return (
         <>
             <div className="hero user-hero">
@@ -9,7 +42,7 @@ export default function UserProfilePage() {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="hero-ct">
-                                <h1>Edward kennedy’s profile</h1>
+                                <h1>{user ? user.username : "User"}’s profile</h1>
                                 <ul className="breadcumb">
                                     <li className="active"><a href="#">Home</a></li>
                                     <li> <span className="ion-ios-arrow-right"></span>Profile</li>
@@ -24,11 +57,11 @@ export default function UserProfilePage() {
                     <div className="row ipad-width">
                             <div className="col-md-3 col-sm-12 col-xs-12">
                                  <UserInformationComponent
-                                    avatarUrl="images/uploads/user-img.png"
+                                    avatarUrl={user ? user.avatarUrl : "images/uploads/user-img.png"}
                                     profileLink="/user-profile"
                                     favoriteLink="/movie-favorites"
                                     activePage="profile"
-                                    onChangeAvatar={() => alert("Change avatar clicked")}
+                                    onChangeAvatar={(file) => handleAvatarChange(file)}
                                     onChangePassword={() => alert("Change password clicked")}
                                     onLogout={() => alert("Logged out")}
                                     />
@@ -36,15 +69,14 @@ export default function UserProfilePage() {
                             <div className="col-md-9 col-sm-12 col-xs-12">
                                 <UserProfileChangeFormComponent
                                     initialProfile={{
-                                        username: "edwardkennedy",
-                                        email: "edward@kennedy.com",
-                                        firstName: "Edward",
-                                        lastName: "Kennedy",
-                                        country: "United States",
-                                        state: "New York",
+                                        username: user ? user.username : "",
+                                        email: user ? user.email : "",
+                                        fullName: (user && user.fullName) ? user.fullName : "",
+                                        country: (user && user.country) ? user.country : "",
+                                        state: (user && user.state) ? user.state : "",
                                     }}
-                                    onSaveProfile={(data) => console.log("Profile saved:", data)}
-                                    onChangePassword={(data) => console.log("Password changed:", data)}
+                                    onSaveProfile={(data) => changeProfile(data)}
+                                    onChangePassword={(data) => changeProfile(data)}
                                 />
                             </div>
                         </div>

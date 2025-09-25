@@ -33,7 +33,7 @@ export default function AdminMoviesPage() {
         id: m.id,
         title: m.title,
         description: m.description || "",
-        type: m.type,
+        type: m.type || "",
         releaseYear: m.releaseYear ?? 0,
         country: m.country ?? "",
         posterUrl: m.posterUrl || "",

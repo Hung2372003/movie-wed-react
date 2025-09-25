@@ -1,11 +1,15 @@
+
 // User
 export interface User {
   id: number;
   username: string;
+  fullName: string;
   email: string;
-  createdAt: string;
+  country?: string;
+  state?: string;
+  avatarUrl?: string;
+  role: string;
 }
-
 // Movie
 export interface Movie {
   id: number;
@@ -19,8 +23,8 @@ export interface Movie {
   country?: string | null;
   director?: string | null;
   duration?: number | null; // phút
-  type: string;             // ví dụ: "Action", "Drama"...
-  createdAt: string;        // ISO string
+  type?: string;             // ví dụ: "Action", "Drama"...
+  createdAt?: string;        // ISO string
   updatedAt?: string | null;
   averageRating?: number | null;
   // Quan hệ
@@ -66,6 +70,7 @@ export interface Favorite {
   movieId: number;
   userId: number;
   createdAt: string;
+  movie?: Movie;
 }
 
 export interface AuthUser {

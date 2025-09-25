@@ -3,16 +3,23 @@ import Slider from "react-slick";
 import type { Settings } from "react-slick";
 import TrailerItem from "../trailer-item/trailer-item.component";
 
-interface VideoSliderProps {
-  videos: string[];
-  trailers: { image: string; title: string; duration: string }[];
+// Kiểu dữ liệu cho 1 phim
+interface Movie {
+  id: number;
+  title: string;
+  posterUrl: string;
+  trailerUrl: string;
+  duration: number;
 }
 
-const VideoSlider: React.FC<VideoSliderProps> = ({ videos, trailers }) => {
+interface VideoSliderProps {
+  movies: Movie[]; // 👈 Nhận trực tiếp array phim từ API
+}
+
+const VideoSlider: React.FC<VideoSliderProps> = ({ movies }) => {
   const mainSlider = useRef<Slider | null>(null);
   const navSlider = useRef<Slider | null>(null);
 
-  // state để đồng bộ slider
   const [nav1, setNav1] = useState<Slider | null>(null);
   const [nav2, setNav2] = useState<Slider | null>(null);
 
@@ -25,6 +32,7 @@ const VideoSlider: React.FC<VideoSliderProps> = ({ videos, trailers }) => {
     asNavFor: nav2 ?? undefined,
     arrows: false,
     fade: true,
+    infinite: true,
   };
 
   const navSettings: Settings = {
@@ -34,24 +42,33 @@ const VideoSlider: React.FC<VideoSliderProps> = ({ videos, trailers }) => {
     focusOnSelect: true,
     arrows: true,
     centerMode: false,
-    vertical: true,        // 👈 hàng dọc
-    verticalSwiping: true, // 👈 cho phép swipe dọc
+    vertical: true,
+    verticalSwiping: true,
+    infinite: true,
+    responsive: [
+      {
+        breakpoint: 768, // mobile: thumbnail nằm ngang
+        settings: {
+          vertical: false,
+          verticalSwiping: false,
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   return (
     <div className="videos">
-      {/* Slider chính hiển thị video */}
+      {/* Slider chính hiển thị trailer */}
       <Slider {...mainSettings} ref={mainSlider} className="slider-for-2 video-ft">
-        {videos.map((video, idx) => (
-          <div key={idx}>
-            <iframe
+        {movies.map((movie) => (
+          <div key={movie.id}>
+            <video
               className="item-video"
-              src={video}
-              title={`video-${idx}`}
+              src={movie.trailerUrl}
+              controls
               width="100%"
               height="400"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
             />
           </div>
         ))}
@@ -59,12 +76,12 @@ const VideoSlider: React.FC<VideoSliderProps> = ({ videos, trailers }) => {
 
       {/* Slider thumbnail */}
       <Slider {...navSettings} ref={navSlider} className="slider-nav-2 thumb-ft">
-        {trailers.map((trailer, idx) => (
+        {movies.map((movie) => (
           <TrailerItem
-            key={idx}
-            image={trailer.image}
-            title={trailer.title}
-            duration={trailer.duration}
+            key={movie.id}
+            image={movie.posterUrl}
+            title={movie.title}
+            duration={`${movie.duration} min`}
           />
         ))}
       </Slider>

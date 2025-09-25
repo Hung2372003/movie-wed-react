@@ -1,14 +1,14 @@
 import React from "react";
 import VideoSlider from "../../components/video-slider/video-slider.component";
 import CelebrityItem from "../../components/celebrity-item/celebrity-item.component";
+import type { Movie } from "../../types/api-response.interface";
 
 interface TrailerSectionProps {
-  videos: string[];
-  trailers: { image: string; title: string; duration: string }[];
+  movies: Movie[]; // Dữ liệu phim từ API
   celebrities: { name: string; role: string; image: string }[];
 }
 
-const TrailerSection: React.FC<TrailerSectionProps> = ({ videos, trailers, celebrities }) => {
+const TrailerSection: React.FC<TrailerSectionProps> = ({ movies, celebrities }) => {
   return (
     <div className="trailers full-width">
       <div className="row ipad-width">
@@ -22,7 +22,12 @@ const TrailerSection: React.FC<TrailerSectionProps> = ({ videos, trailers, celeb
           </div>
 
           {/* Slider */}
-          <VideoSlider videos={videos} trailers={trailers} />
+          <VideoSlider movies={movies.map(movie => ({
+            ...movie,
+            posterUrl: movie.posterUrl ?? "",
+            trailerUrl: movie.trailerUrl ?? "",
+            duration: movie.duration ?? 0
+          }))} />
         </div>
 
         {/* Right */}

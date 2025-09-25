@@ -1,8 +1,9 @@
-import React from "react";
+// src/components/UserInformationComponent.tsx
+import React, { useState } from "react";
 
 interface UserInformationProps {
   avatarUrl: string;
-  onChangeAvatar?: () => void;
+  onChangeAvatar?: (file: File) => void; // 👈 trả file về cha
   profileLink: string;
   favoriteLink: string;
   activePage?: "profile" | "favorite" | "rated";
@@ -19,23 +20,38 @@ const UserInformationComponent: React.FC<UserInformationProps> = ({
   onChangePassword,
   onLogout,
 }) => {
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Tạo URL preview
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+
+      // Gửi file về cha
+      onChangeAvatar?.(file);
+    }
+  };
+
   return (
     <div className="user-information">
       <div className="user-img">
         <a href="#">
-          <img src={avatarUrl} alt="User Avatar" />
+          <img src={preview || avatarUrl} alt="User Avatar" />
           <br />
         </a>
-        <a
-          href="#"
-          className="redbtn"
-          onClick={(e) => {
-            e.preventDefault();
-            onChangeAvatar?.();
-          }}
-        >
+
+        <label style={{ cursor: "pointer" }} htmlFor="avatar-upload" className="redbtn">
           Change avatar
-        </a>
+        </label>
+        <input
+          style={{ display: "none" }}
+          type="file"
+          id="avatar-upload"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
       </div>
 
       <div className="user-fav">

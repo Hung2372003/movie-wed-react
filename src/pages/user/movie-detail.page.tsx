@@ -14,7 +14,7 @@ export default function MovieDetailPage() {
             const fetchMovie = async () => {
             try {
                 const res = await MoviesApi.getById(Number(id));
-                setMovie(res.data); 
+                setMovie(res.data);
             } catch (err) {
                 console.error("Lỗi khi load movie:", err);
             } finally {
@@ -32,7 +32,7 @@ export default function MovieDetailPage() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                    
+
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@ export default function MovieDetailPage() {
             genres={["Action", "Sci-Fi", "Adventure"]}
             releaseDate=""
             runtime={movie.duration ? `${movie.duration} min` : "N/A"}
-            mmpaRating={movie.type}
+            mmpaRating={movie.type ?? "N/A"}
             plotKeywords={["superhero", "marvel universe", "comic", "blockbuster"]}
             casts={[]}
             reviews={[
@@ -68,7 +68,7 @@ export default function MovieDetailPage() {
             />
 
     </>
-    
+
 );
 
 }

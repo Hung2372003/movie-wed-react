@@ -3,7 +3,6 @@ import StickySidebar from "../common/sticky-sidebar.component";
 import { FavoritesApi, RatingsApi } from "../../api/end-point.api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 interface Cast {
   name: string;
   role: string;
@@ -68,7 +67,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
        toast.success("Đã thêm vào mục yêu thích");
     } catch (error) {
       console.error("Error adding to favorites:", error);
-      alert("Failed to add to favorites.");
+      toast.success("Đã thêm vào mục yêu thích");
     }
   }
   useEffect(() => {
@@ -120,10 +119,10 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                 {title} <span>{year}</span>
               </h1>
               <div className="social-btn">
-                <div  onClick= {()=>useAddFavorite()}>
+                <div style={{ cursor: "pointer" }} onClick={() => useAddFavorite()}>
                    <a className="parent-btn" ><i className="ion-heart"></i> Add to Favorite</a>
                 </div>
-               
+
                 <div className="hover-bnt">
                   <a href="#" className="parent-btn"><i className="ion-android-share-alt"></i>share</a>
                   <div className="hvr-item">
@@ -132,7 +131,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                     <a href="#" className="hvr-grow"><i className="ion-social-googleplus"></i></a>
                     <a href="#" className="hvr-grow"><i className="ion-social-youtube"></i></a>
                   </div>
-                </div>		
+                </div>
               </div>
               {/* Rating */}
               <div className="movie-rate">

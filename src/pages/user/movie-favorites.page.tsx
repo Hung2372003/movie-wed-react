@@ -2,23 +2,25 @@ import { useEffect, useState } from "react";
 import UserInformation from "../../components/user-information/user-information.component";
 import MovieGridComponent from "../../layouts/movie-grid/movie-grid.component";
 import PreloaderComponent from "../../components/preloader/preloader.component";
+import { FavoritesApi } from "../../api/end-point.api";
+import { useNavigate } from "react-router-dom";
 
-const movies = [
-      { id: 1, title: "Interstellar", image: "images/uploads/mv-item1.jpg", rating: 8.6 },
-      { id: 2, title: "Inception", image: "images/uploads/mv-item2.jpg", rating: 8.8 },
-      { id: 3, title: "The Dark Knight", image: "images/uploads/mv-item3.jpg", rating: 9.0 },
-      { id: 4, title: "Tenet", image: "images/uploads/mv-item4.jpg", rating: 7.5 },
-      { id: 5, title: "Dunkirk", image: "images/uploads/mv-item5.jpg", rating: 7.9 },
-      { id: 6, title: "Avatar", image: "images/uploads/mv-item6.jpg", rating: 7.8 },
-      { id: 7, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
-      { id: 8, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
-      { id: 9, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-      { id: 10, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
-      { id: 11, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
-      { id: 12, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
-      { id: 13, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-      { id: 14, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
-    ];
+// const movies = [
+//       { id: 1, title: "Interstellar", image: "images/uploads/mv-item1.jpg", rating: 8.6 },
+//       { id: 2, title: "Inception", image: "images/uploads/mv-item2.jpg", rating: 8.8 },
+//       { id: 3, title: "The Dark Knight", image: "images/uploads/mv-item3.jpg", rating: 9.0 },
+//       { id: 4, title: "Tenet", image: "images/uploads/mv-item4.jpg", rating: 7.5 },
+//       { id: 5, title: "Dunkirk", image: "images/uploads/mv-item5.jpg", rating: 7.9 },
+//       { id: 6, title: "Avatar", image: "images/uploads/mv-item6.jpg", rating: 7.8 },
+//       { id: 7, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
+//       { id: 8, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
+//       { id: 9, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
+//       { id: 10, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
+//       { id: 11, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
+//       { id: 12, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
+//       { id: 13, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
+//       { id: 14, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
+//     ];
 
 export default function MoviesFavoritesPage() {
     const userString = localStorage.getItem("user");
@@ -26,10 +28,27 @@ export default function MoviesFavoritesPage() {
     const [loading, setLoading] = useState(true);
     const [perPage, setPerPage] = useState(10);
     const [page, setPage] = useState(1);
+    type Movie = { id: number; title: string; image: string; rating: number };
+    const [movies, setMovies] = useState<Movie[]>([]);
     const total = movies.length;
     const pagedMovies = movies.slice((page - 1) * perPage, page * perPage);
-
+   const navigate = useNavigate();
       useEffect(() => { setLoading(false)}, []);
+      useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const response = await FavoritesApi.getMyFavorites();
+                const mappedData = response.data.map((item) => ({
+                    id: item.movieId,
+                    title: item.movie?.title || "No title",
+                    image: item.movie?.posterUrl || "images/uploads/mv-item1.jpg",
+                    rating: item.movie?.averageRating || 0,
+                }));
+                setMovies(mappedData);
+            } catch (error) {}
+        };
+        fetchFavorites();
+      }, []);
       if (loading) return <PreloaderComponent />;
 
     return (
@@ -53,12 +72,12 @@ export default function MoviesFavoritesPage() {
                     <div className="row ipad-width2">
                         <div className="col-md-3 col-sm-12 col-xs-12">
                           <UserInformation
-                            avatarUrl="images/uploads/user-img.png"
+                            avatarUrl={user ? user.avatarUrl : "images/uploads/user-img.png"}
                             profileLink="/user-profile"
                             favoriteLink="/movie-favorites"
                             activePage="favorite"
                             onChangeAvatar={() => alert("Change avatar clicked")}
-                            onChangePassword={() => alert("Change password clicked")}
+                            onChangePassword={() => navigate("/user-profile")}
                             onLogout={() => alert("Logged out")}
                             />
                         </div>

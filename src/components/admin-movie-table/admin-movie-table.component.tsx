@@ -26,6 +26,7 @@ export default function AdminMovieTable({ movies, onEdit, onDelete ,editingId: p
     <table className="movie-table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Trailer</th>
           <th>Poster</th>
           <th>Title</th>
@@ -40,6 +41,7 @@ export default function AdminMovieTable({ movies, onEdit, onDelete ,editingId: p
       <tbody>
         {movies.map((movie) => (
           <tr key={movie.id}>
+            <td>{movie.id}</td>
             <td>  {movie.trailerUrl ? (
                 <iframe src={movie.trailerUrl} className="trailer-iframe" />
               ) : (

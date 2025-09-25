@@ -8,23 +8,6 @@ import SearchFormComponent from "../../components/search-form/search-form.compon
 import { MoviesApi, RatingsApi } from "../../api/end-point.api";
 import type { Movie } from "../../types/api-response.interface";
 
-// const movies = [
-//       { id: 1, title: "Interstellar", image: "images/uploads/mv-item1.jpg", rating: 8.6 },
-//       { id: 2, title: "Inception", image: "images/uploads/mv-item2.jpg", rating: 8.8 },
-//       { id: 3, title: "The Dark Knight", image: "images/uploads/mv-item3.jpg", rating: 9.0 },
-//       { id: 4, title: "Tenet", image: "images/uploads/mv-item4.jpg", rating: 7.5 },
-//       { id: 5, title: "Dunkirk", image: "images/uploads/mv-item5.jpg", rating: 7.9 },
-//       { id: 6, title: "Avatar", image: "images/uploads/mv-item6.jpg", rating: 7.8 },
-//       { id: 7, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
-//       { id: 8, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
-//       { id: 9, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-//       { id: 10, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
-//       { id: 11, title: "Avengers: Endgame", image: "images/uploads/mv-item7.jpg", rating: 8.4 },
-//       { id: 12, title: "Guardians of the Galaxy", image: "images/uploads/mv-item8.jpg", rating: 8.0 },
-//       { id: 13, title: "The Matrix", image: "images/uploads/mv-item9.jpg", rating: 8.7 },
-//       { id: 14, title: "The Shawshank Redemption", image: "images/uploads/mv-item10.jpg", rating: 9.3 },
-//     ];
-
 export default function MoviesPage() {
   const [loading, setLoading] = useState(true);
   const [perPage, setPerPage] = useState(10);
@@ -40,33 +23,41 @@ export default function MoviesPage() {
     }));
   // const totalPages = Math.ceil(total / perPage);
 
-  useEffect(() => { 
-     const fetchMovie = async () => {
-            try {
-                let res = await MoviesApi.getAll(page, perPage);
-               
-                res.data.data.forEach(async (movie) => {
-                  try {
-                    let ratingRes = await RatingsApi.getAverageRating(movie.id);  
-                    // Assign average rating to a new property
-                    movie.averageRating = await ratingRes.data.average;
-                  } 
-                  catch (err) {
-                    console.error("Lỗi khi load rating:", err);
-                  } finally {
-                      setMovies(res.data);
-                  }
-                });
-              
-            } catch (err) {
-                console.error("Lỗi khi load movie:", err);
-            } finally {
-                setLoading(false);
-            }
-            };
-        fetchMovie();
-       setLoading(false);
-  }, [page, perPage]);
+  useEffect(() => {
+  const fetchMovie = async () => {
+    try {
+      let res = await MoviesApi.getAll(page, perPage);
+      let movies = res.data.data;
+
+      // Map qua tất cả movies để lấy rating song song
+      const moviesWithRatings = await Promise.all(
+        movies.map(async (movie) => {
+          try {
+            let ratingRes = await RatingsApi.getAverageRating(movie.id);
+            return { ...movie, averageRating: ratingRes.data.average };
+          } catch (err) {
+            console.error("Lỗi khi load rating:", err);
+            return { ...movie, averageRating: null }; // fallback
+          }
+        })
+      );
+
+      setMovies({
+        total: res.data.total,
+        page: res.data.page,
+        pageSize: res.data.pageSize,
+        data: moviesWithRatings,
+      });
+    } catch (err) {
+      console.error("Lỗi khi load movie:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMovie();
+}, [page, perPage]);
+
   if (loading) return <PreloaderComponent />;
 
   return (

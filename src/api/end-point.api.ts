@@ -1,5 +1,5 @@
 import AxiosClient from "./axios-client";
-import type { Movie, Episode, Comment, Rating, Favorite, RegisterResponse, LoginResponse } from "../types/api-response.interface";
+import type { Movie, Episode, Comment, Rating, Favorite, RegisterResponse, LoginResponse ,User} from "../types/api-response.interface";
 
 // ================= MOVIES =================
 
@@ -51,7 +51,7 @@ export const EpisodesApi = {
     const formData = new FormData();
     formData.append("episodeNumber", data.episodeNumber.toString());
     formData.append("title", data.title ?? "");
-    
+
     // Nếu có file video thì append
     if (data.video) {
       formData.append("video", data.video);
@@ -96,7 +96,7 @@ export const EpisodesApi = {
 // ================= FAVORITES =================
 export const FavoritesApi = {
   getMyFavorites: () =>
-    AxiosClient.get<Favorite[]>("/favorites/me"),
+    AxiosClient.get<Favorite[]>("/favorites"),
 
   add: (movieId: number) =>
     AxiosClient.post<Favorite>(`/favorites/movie/${movieId}`),
@@ -129,4 +129,19 @@ export const AuthApi = {
 
   login: (data: { identifier: string; password: string }) =>
     AxiosClient.post<LoginResponse>("/auth/login", data),
+};
+
+export const UserApi = {
+  // ADMIN
+  getAll: () => AxiosClient.get<User[]>("/users"),
+  getById: (id: number) => AxiosClient.get<User>(`/users/${id}`),
+  delete: (id: number) => AxiosClient.delete(`/users/${id}`),
+
+  // USER
+  getMe: () => AxiosClient.get<User>("/users/me"),
+
+  updateMe: (data: FormData) =>
+    AxiosClient.put<User>("/users/me", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
 };

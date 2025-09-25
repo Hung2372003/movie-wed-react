@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-interface ProfileFormData {
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  country: string;
-  state: string;
+export interface ProfileFormData {
+  username?: string;
+  email?: string;
+  fullName?: string;
+  country?: string;
+  state?: string;
+  oldPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
+  avatarUrl?: string;
 }
 
 interface PasswordFormData {
-  oldPassword: string;
-  newPassword: string;
-  confirmPassword: string;
+  oldPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
 }
 
 interface UserProfileProps {
@@ -27,8 +30,7 @@ const UserProfileChangeFormComponent: React.FC<UserProfileProps> = ({
   initialProfile = {
     username: "",
     email: "",
-    firstName: "",
-    lastName: "",
+    fullName: "",
     country: "",
     state: "",
   },
@@ -44,6 +46,9 @@ const UserProfileChangeFormComponent: React.FC<UserProfileProps> = ({
     confirmPassword: "",
   });
 
+  useEffect(() => {
+    setProfile(initialProfile);
+  }, [initialProfile]);
   const handleProfileChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -96,23 +101,13 @@ const UserProfileChangeFormComponent: React.FC<UserProfileProps> = ({
         </div>
 
         <div className="row">
-          <div className="col-md-6 form-it">
-            <label>First Name</label>
+          <div className="col-md-12 form-it">
+            <label>Full Name</label>
             <input
               type="text"
-              name="firstName"
-              placeholder="First name"
-              value={profile.firstName}
-              onChange={handleProfileChange}
-            />
-          </div>
-          <div className="col-md-6 form-it">
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last name"
-              value={profile.lastName}
+              name="fullName"
+              placeholder="Full name"
+              value={profile.fullName}
               onChange={handleProfileChange}
             />
           </div>
