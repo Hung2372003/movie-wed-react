@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import PreloaderComponent from "../../components/preloader/preloader.component";
 import { useEffect, useState } from "react";
 import MovieGridComponent from "../../layouts/movie-grid/movie-grid.component";
-import SearchFormComponent from "../../components/search-form/search-form.component";
+import SearchFormComponent, { type SearchFormValues } from "../../components/search-form/search-form.component";
 import { MoviesApi, RatingsApi } from "../../api/end-point.api";
 import type { Movie } from "../../types/api-response.interface";
 
@@ -57,7 +57,7 @@ export default function MoviesPage() {
 
   fetchMovie();
 }, [page, perPage]);
-  const handleSearch = (data: any) => {
+  const handleSearch = (data: SearchFormValues) => {
       console.log("Dữ liệu nhận được từ SearchForm:", data);
 
     };

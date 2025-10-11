@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-interface SearchFormValues {
-  movieName: string;
-  genres: string[];
-  rating: string;
-  releaseYearFrom: string;
-  releaseYearTo: string;
+export interface SearchFormValues {
+  movieName?: string;
+  genres?: string[];
+  rating?: string;
+  releaseYearFrom?: string;
+  releaseYearTo?: string;
 }
 
 interface Option {
@@ -157,7 +157,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
           <div className="col-md-12 form-it">
             <label>Genres & Subgenres</label>
             <GenresDropdown
-              selected={formData.genres}
+              selected={formData.genres ?? []}
               onChange={(genres) => setFormData((prev) => ({ ...prev, genres }))}
             />
           </div>
