@@ -48,9 +48,9 @@ export default function MovieDetailPage() {
             rating={typeof movie.ratings === "number" ? movie.ratings : 0}
             reviewsCount={movie.comments ? movie.comments.length : 0}
             director={[movie.director ?? "Unknown Director"]}
-            writer={["Joss Whedon", "Stan Lee"]}
+            writer={[movie.director ?? "Unknown Writer"]}
             stars={["Robert Downey Jr.", "Chris Evans", "Mark Ruffalo"]}
-            genres={["Action", "Sci-Fi", "Adventure"]}
+            genres={[movie.type ?? "Action"]}
             releaseDate=""
             runtime={movie.duration ? `${movie.duration} min` : "N/A"}
             mmpaRating={movie.type ?? "N/A"}

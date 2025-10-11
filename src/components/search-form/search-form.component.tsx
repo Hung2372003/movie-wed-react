@@ -14,8 +14,8 @@ interface Option {
 }
 
 const genreOptions: Option[] = [
-  { value: "Action1", label: "Action 1" },
-  { value: "Action2", label: "Action 2" },
+  { value: "Movie", label: "Movie" },
+  { value: "Se", label: "Action 2" },
   { value: "Action3", label: "Action 3" },
   { value: "Action4", label: "Action 4" },
   { value: "Action5", label: "Action 5" },
