@@ -50,7 +50,7 @@ export default function MoviePlayerWithComments() {
             id: e.id,
             title: e.title,
             videoUrl: e.videoUrl,
-            thumbnailUrl: ep.data.trailerUrl ?? "https://res.cloudinary.com/dgfxw2ed6/image/upload/v1758718902/images/irioutnugi9fdpxemuoa.png",
+            thumbnailUrl: ep.data.posterUrl ?? "https://res.cloudinary.com/dgfxw2ed6/image/upload/v1758718902/images/irioutnugi9fdpxemuoa.png",
             description: e.updatedAt
           }))
         : [];
