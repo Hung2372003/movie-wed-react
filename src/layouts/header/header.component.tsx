@@ -36,7 +36,11 @@ export default function HeaderComponent({ onLoginOpen, onSignupOpen }: HeaderPro
         <nav id="mainNav" className="navbar navbar-default navbar-custom">
           <div className="navbar-header logo">
             <NavLink to="/">
-              <img className="logo" src="/images/logo1.png" alt="" width="119" height="58" />
+              {/* <img className="logo" src="/images/logo1.png" alt="" width="119" height="58" /> */}
+              <div className="logoWrap">
+                <h1 className="logo">BeuFilm</h1>
+              </div>
+
             </NavLink>
           </div>
 

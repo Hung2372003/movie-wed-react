@@ -57,8 +57,25 @@ export default function MoviesPage() {
 
   fetchMovie();
 }, [page, perPage]);
-  const handleSearch = (data: SearchFormValues) => {
+  const handleSearch = async (data: SearchFormValues) => {
       console.log("Dữ liệu nhận được từ SearchForm:", data);
+      try {
+    const response = await MoviesApi.search({
+      movieName: data.movieName,
+      genres: data.genres,
+      rating: data.rating,
+      releaseYearFrom: data.releaseYearFrom,
+      releaseYearTo: data.releaseYearTo,
+      page: movies.page,
+      pageSize: movies.pageSize,
+    });
+
+    console.log("✅ Kết quả từ API:", response.data);
+
+    setMovies(response.data);
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi API tìm kiếm:", error);
+  }
 
     };
   if (loading) return <PreloaderComponent />;

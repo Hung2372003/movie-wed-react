@@ -44,3 +44,214 @@
     border-radius: 50%;
 }
 
+     /* .hero {
+        width: min(1100px, 95%);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 20px;
+        padding: 48px;
+        box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 32px;
+        align-items: center;
+      } */
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 28px;
+        }
+      }
+
+      .titleWrap {
+        padding: 12px 18px;
+      }
+
+      /* Main styled text */
+      .logo {
+        font-family: "Cinzel", serif;
+        font-weight: 900;
+        font-size: clamp(40px, 8vw, 16px);
+        line-height: 0.9;
+        letter-spacing: -2px;
+        display: inline-block;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        position: relative;
+        transform: translateZ(0);
+      }
+
+      /* Neon/glow layer */
+      .logo::after {
+        content: "Thành BeuFilm";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        filter: blur(18px) saturate(120%);
+        opacity: 0.45;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 95, 109, 0.9),
+          rgba(255, 195, 113, 0.9)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transform: translateY(6px) scale(1.02);
+      }
+
+      .sub {
+        margin-top: 12px;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 60ch;
+      }
+
+      /* Badge / tag */
+      .tag {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 18px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.02)
+        );
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(6px) saturate(120%);
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.5);
+      }
+
+      /* right column with decorative poster */
+      .panel {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .poster {
+        width: 100%;
+        height: 240px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        display: block;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 95, 109, 0.15),
+          rgba(255, 195, 113, 0.08)
+        );
+        box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .poster .stamp {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .poster svg {
+        width: 85%;
+        height: auto;
+        opacity: 0.95;
+      }
+
+      /* animated underline */
+      .logoWrap {
+        display: inline-block;
+        position: relative;
+        padding-bottom: 6px;
+      }
+      .logoWrap::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 6px;
+        width: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent2), var(--accent1));
+        transform-origin: left;
+        animation: slide 3s infinite ease-in-out;
+        filter: blur(8px);
+        opacity: 0.85;
+      }
+      @keyframes slide {
+        0% {
+          transform: scaleX(0.15);
+        }
+        50% {
+          transform: scaleX(1);
+        }
+        100% {
+          transform: scaleX(0.15);
+        }
+      }
+
+      /* small footer */
+      .meta {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 14px;
+      }
+
+      /* interactive button */
+      .cta {
+        margin-top: 18px;
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+        color: #081020;
+        box-shadow: 0 8px 30px rgba(255, 95, 109, 0.12);
+        transition: transform 0.18s ease, box-shadow 0.18s;
+      }
+      .cta:active {
+        transform: translateY(2px);
+      }
+ :root {
+        --bg1: #0f1724; /* deep navy */
+        --bg2: #081020; /* darker */
+        --accent1: #ff5f6d;
+        --accent2: #ffc371;
+        --glass: rgba(255, 255, 255, 0.06);
+      }

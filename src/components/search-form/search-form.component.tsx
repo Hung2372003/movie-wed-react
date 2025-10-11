@@ -163,7 +163,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
           </div>
 
           {/* Rating */}
-          <div className="col-md-12 form-it">
+          {/* <div className="col-md-12 form-it">
             <label>Rating Range</label>
             <select
               name="rating"
@@ -179,7 +179,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
 
           {/* Release Year */}
           <div className="col-md-12 form-it">

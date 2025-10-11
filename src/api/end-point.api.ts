@@ -33,9 +33,22 @@ export const MoviesApi = {
     }),
 
   delete: (id: number) => AxiosClient.delete<void>(`/movies/${id}`),
+  search: (data: MovieSearchRequest) =>
+    AxiosClient.post<{ total: number; page: number; pageSize: number; data: Movie[] }>(
+      "/movies/search",
+      data
+    ),
 };
 
-
+export interface MovieSearchRequest {
+  movieName?: string;
+  genres?: string[];
+  rating?: string;
+  releaseYearFrom?: string;
+  releaseYearTo?: string;
+  page?: number;
+  pageSize?: number;
+}
 // ================= EPISODES =================
 export const EpisodesApi = {
    getAllEpisode: () =>
