@@ -206,10 +206,10 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                           <h6>Writer: </h6>
                           <p>{writer.join(", ")}</p>
                         </div>
-                        <div className="sb-it">
+                        {/* <div className="sb-it">
                           <h6>Stars: </h6>
                           <p>{stars.join(", ")}</p>
-                        </div>
+                        </div> */}
                         <div className="sb-it">
                           <h6>Genres: </h6>
                           <p>{genres.join(", ")}</p>
