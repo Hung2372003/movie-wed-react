@@ -57,7 +57,10 @@ export default function MoviesPage() {
 
   fetchMovie();
 }, [page, perPage]);
+  const handleSearch = (data: any) => {
+      console.log("Dữ liệu nhận được từ SearchForm:", data);
 
+    };
   if (loading) return <PreloaderComponent />;
 
   return (
@@ -95,7 +98,7 @@ export default function MoviesPage() {
                 </div>
               <div className="col-md-4 col-sm-12 col-xs-12">
 			        	<div className="sidebar">
-                  <SearchFormComponent />
+                  <SearchFormComponent onSubmit={handleSearch}/>
                 </div>
               </div>
             </div>

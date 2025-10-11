@@ -15,10 +15,7 @@ interface Option {
 
 const genreOptions: Option[] = [
   { value: "Movie", label: "Movie" },
-  { value: "Se", label: "Action 2" },
-  { value: "Action3", label: "Action 3" },
-  { value: "Action4", label: "Action 4" },
-  { value: "Action5", label: "Action 5" },
+  { value: "Series", label: "Series" },
 ];
 
 const ratingOptions = [
@@ -119,7 +116,10 @@ const GenresDropdown: React.FC<{
   );
 };
 
-const SearchForm: React.FC = () => {
+interface SearchFormProps {
+  onSubmit: (data: SearchFormValues) => void;
+}
+const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<SearchFormValues>({
     movieName: "",
     genres: [],
@@ -130,6 +130,7 @@ const SearchForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+     onSubmit(formData);
     console.log("Form submitted:", formData);
   };
 
